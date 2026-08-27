@@ -17,7 +17,7 @@ Webカメラで手元の紙を見守り、描画・手書きの練習にリア�
 
 ## セットアップ
 
-必要なもの: [Bun](https://bun.sh) 1.3+
+必要なもの: [Bun](https://bun.sh) 1.4+(CIは `.github/actions/setup-bun` でピン留め)
 
 ```bash
 bun install
