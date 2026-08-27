@@ -1,0 +1,20 @@
+{
+  "name": "watch-my-strokes",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:server": "bun run apps/server/src/index.ts",
+    "dev:web": "bun run --cwd apps/web dev",
+    "typecheck": "tsgo --noEmit -p apps/server/tsconfig.json && tsgo --noEmit -p apps/web/tsconfig.json && tsgo --noEmit -p scripts/tsconfig.json",
+    "test": "bun test apps packages",
+    "simulate": "bun run scripts/simulate.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.0",
+    "@typescript/native-preview": "^7.0.0-dev",
+    "playwright-core": "^1.49.0"
+  }
+}
