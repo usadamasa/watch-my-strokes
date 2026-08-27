@@ -14,7 +14,13 @@ function rgba(pixels: [number, number, number][]): Uint8ClampedArray {
 
 describe("toGrayscale", () => {
   test("白・黒・純色を輝度へ変換する", () => {
-    const gray = toGrayscale(rgba([[255, 255, 255], [0, 0, 0], [255, 0, 0]]));
+    const gray = toGrayscale(
+      rgba([
+        [255, 255, 255],
+        [0, 0, 0],
+        [255, 0, 0],
+      ]),
+    );
     expect(gray[0]).toBe(255);
     expect(gray[1]).toBe(0);
     expect(Math.round(gray[2]!)).toBe(76); // 0.299 * 255

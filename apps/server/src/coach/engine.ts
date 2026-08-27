@@ -1,9 +1,4 @@
-import type {
-  CoachMode,
-  FrameRequest,
-  FrameResponse,
-  ProviderId,
-} from "@wms/shared";
+import type { CoachMode, FrameRequest, FrameResponse, ProviderId } from "@wms/shared";
 import type { AdviceRecord, CoachProvider, StoredFrame } from "./provider.ts";
 
 /** 文脈として保持するフレーム数(画像トークンの上限)。 */
@@ -25,7 +20,10 @@ export class CoachEngine {
 
   constructor(private providerFactory: (id?: ProviderId) => CoachProvider) {}
 
-  createSession(mode: CoachMode, providerId?: ProviderId): {
+  createSession(
+    mode: CoachMode,
+    providerId?: ProviderId,
+  ): {
     sessionId: string;
     provider: ProviderId;
     model?: string;

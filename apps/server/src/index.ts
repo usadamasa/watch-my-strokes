@@ -9,16 +9,16 @@ import { CoachEngine, SessionNotFoundError } from "./coach/engine.ts";
 import { MockCoach } from "./coach/mock.ts";
 import type { CoachProvider } from "./coach/provider.ts";
 
-const PORT = Number(process.env["PORT"] ?? 8787);
+const PORT = Number(process.env.PORT ?? 8787);
 
 /**
  * プロバイダの解決順: 明示指定 > COACH_PROVIDER 環境変数 >
  * ANTHROPIC_API_KEY があれば anthropic、なければ mock。
  */
 function defaultProviderId(): ProviderId {
-  const env = process.env["COACH_PROVIDER"];
+  const env = process.env.COACH_PROVIDER;
   if (env === "anthropic" || env === "mock") return env;
-  return process.env["ANTHROPIC_API_KEY"] ? "anthropic" : "mock";
+  return process.env.ANTHROPIC_API_KEY ? "anthropic" : "mock";
 }
 
 function makeProvider(id?: ProviderId): CoachProvider {

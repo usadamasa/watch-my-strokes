@@ -1,0 +1,120 @@
+name: CI
+
+"on":
+  pull_request:
+  merge_group:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ブランチ保護はこのジョブだけを required にする。
+  # 依存ジョブがすべて成功したときは skipped(= required check としては成功扱い)、
+  # どれかが失敗したときだけ起動して失敗する。
+  ci-status-check:
+    runs-on: ubuntu-latest
+    if: failure()
+    timeout-minutes: 10
+    needs:
+      - build
+      - test
+      - lint
+      - metrics
+    steps:
+      - run: exit 1
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Setup Bun
+        uses: ./.github/actions/setup-bun
+
+      - name: Typecheck (tsgo)
+        run: bun run typecheck
+
+      - name: Build web
+        run: bun run --cwd apps/web build
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Setup Bun
+        uses: ./.github/actions/setup-bun
+
+      - name: Run tests with coverage
+        run: bun test apps packages --coverage 2>&1 | tee test-output.txt
+
+      - name: Publish coverage report
+        if: always()
+        run: |
+          {
+            echo "## テスト・カバレッジ"
+            echo '```text'
+            tail -n 60 test-output.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Setup Bun
+        uses: ./.github/actions/setup-bun
+
+      - name: Run Biome (lint + format check)
+        run: bun run lint
+
+  metrics:
+    name: Code Metrics
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Install scc
+        run: |
+          SCC_VERSION=3.5.0
+          curl -fsSL -o scc.tar.gz \
+            "https://github.com/boyter/scc/releases/download/v${SCC_VERSION}/scc_Linux_x86_64.tar.gz"
+          tar -xzf scc.tar.gz scc
+          rm scc.tar.gz
+
+      - name: Measure code metrics
+        run: |
+          {
+            echo "## コードメトリクス (scc)"
+            echo '```text'
+            ./scc --exclude-dir node_modules --not-match 'docs/simulation/.*' \
+              --no-cocomo apps packages scripts docs
+            echo '```'
+            echo "### 複雑度上位ファイル"
+            echo '```text'
+            ./scc --exclude-dir node_modules --by-file --sort complexity \
+              --no-cocomo apps packages scripts | head -n 25
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          # ログにも出す
+          ./scc --exclude-dir node_modules --no-cocomo apps packages scripts docs

@@ -23,7 +23,12 @@ function frameReq(frameIndex: number): FrameRequest {
   return {
     imageBase64: `img${frameIndex}`,
     mediaType: "image/jpeg",
-    metrics: { frameIndex, elapsedMs: frameIndex * 1500, changeScore: 0.2, inkRatio: 0.1 },
+    metrics: {
+      frameIndex,
+      elapsedMs: frameIndex * 1500,
+      changeScore: 0.2,
+      inkRatio: 0.1,
+    },
   };
 }
 

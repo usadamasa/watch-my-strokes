@@ -1,9 +1,4 @@
-import type {
-  CoachDecision,
-  CoachMode,
-  FrameMetrics,
-  ProviderId,
-} from "@wms/shared";
+import type { CoachDecision, CoachMode, FrameMetrics, ProviderId } from "@wms/shared";
 
 export interface StoredFrame {
   imageBase64: string;

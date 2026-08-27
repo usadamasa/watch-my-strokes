@@ -3,7 +3,9 @@ import { parseDecision } from "../src/coach/anthropic.ts";
 
 describe("parseDecision", () => {
   test("素のJSONを解釈する", () => {
-    const d = parseDecision('{"intervene": true, "message": "線を長く", "focus": "line-quality"}');
+    const d = parseDecision(
+      '{"intervene": true, "message": "線を長く", "focus": "line-quality"}',
+    );
     expect(d).toEqual({ intervene: true, message: "線を長く", focus: "line-quality" });
   });
 

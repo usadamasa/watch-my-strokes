@@ -25,7 +25,9 @@ export class WebcamSource implements FrameSource {
   }
 
   stop(): void {
-    this.stream?.getTracks().forEach((t) => t.stop());
+    for (const track of this.stream?.getTracks() ?? []) {
+      track.stop();
+    }
     this.stream = null;
     this.video = null;
   }

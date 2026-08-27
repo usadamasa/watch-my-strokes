@@ -10,9 +10,12 @@
     "dev:web": "bun run --cwd apps/web dev",
     "typecheck": "tsgo --noEmit -p apps/server/tsconfig.json && tsgo --noEmit -p apps/web/tsconfig.json && tsgo --noEmit -p scripts/tsconfig.json",
     "test": "bun test apps packages",
+    "lint": "biome ci .",
+    "format": "biome check --write .",
     "simulate": "bun run scripts/simulate.ts"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.11",
     "@types/bun": "^1.4.0",
     "@typescript/native-preview": "^7.0.0-dev",
     "playwright-core": "^1.49.0"

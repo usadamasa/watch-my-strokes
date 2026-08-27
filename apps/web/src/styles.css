@@ -169,14 +169,26 @@ button:disabled {
   flex-shrink: 0;
 }
 
-.type.advice { color: #7fd6a4; }
-.type.speak { color: #f5c76a; }
-.type.ask { color: #7ab3f5; }
-.type.silent { color: #9aa0b0; }
+.type.advice {
+  color: #7fd6a4;
+}
+.type.speak {
+  color: #f5c76a;
+}
+.type.ask {
+  color: #7ab3f5;
+}
+.type.silent {
+  color: #9aa0b0;
+}
 .type.skip-nochange,
 .type.skip-cooldown,
-.type.skip-inflight { color: #565c6e; }
-.type.error { color: #f57a7a; }
+.type.skip-inflight {
+  color: #565c6e;
+}
+.type.error {
+  color: #f57a7a;
+}
 
 .stats {
   display: flex;

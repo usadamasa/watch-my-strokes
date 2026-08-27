@@ -1,9 +1,5 @@
+import type { CoachMode, CreateSessionResponse, SessionEvent } from "@wms/shared";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type {
-  CoachMode,
-  CreateSessionResponse,
-  SessionEvent,
-} from "@wms/shared";
 import { createSession, sendFrame } from "./lib/api.ts";
 import {
   gate,
@@ -40,6 +36,11 @@ interface Advice {
   atMs: number;
 }
 
+/** タイムライン表示用に安定キーを付与したイベント。 */
+interface LoggedEvent extends SessionEvent {
+  seq: number;
+}
+
 function makeSource(id: SourceId): FrameSource {
   if (id === "webcam") return new WebcamSource();
   return new SimulatedSource(id === "sim-drawing" ? "drawing" : "handwriting");
@@ -62,7 +63,7 @@ export default function App() {
   const [intervalMs, setIntervalMs] = useState(1500);
   const [cooldownMs, setCooldownMs] = useState(8000);
   const [minChange, setMinChange] = useState(0.0005);
-  const [events, setEvents] = useState<SessionEvent[]>([]);
+  const [events, setEvents] = useState<LoggedEvent[]>([]);
   const [advice, setAdvice] = useState<Advice | null>(null);
   const [session, setSession] = useState<CreateSessionResponse | null>(null);
   const [crop, setCrop] = useState<CropRect | null>(null);
@@ -80,7 +81,7 @@ export default function App() {
   const lastSentGrayRef = useRef<Uint8Array | null>(null);
   const throttleRef = useRef<ThrottleState>(initialThrottleState);
   const speakerRef = useRef(new Speaker());
-  const eventsRef = useRef<SessionEvent[]>([]);
+  const eventsRef = useRef<LoggedEvent[]>([]);
   const runningRef = useRef(false);
   const sessionRef = useRef<CreateSessionResponse | null>(null);
   const configRef = useRef({ intervalMs, cooldownMs, minChange });
@@ -91,14 +92,18 @@ export default function App() {
   cropRef.current = crop;
 
   const log = useCallback((event: Omit<SessionEvent, "t">) => {
-    const entry: SessionEvent = { t: Date.now() - startedAtRef.current, ...event };
+    const entry: LoggedEvent = {
+      t: Date.now() - startedAtRef.current,
+      seq: eventsRef.current.length,
+      ...event,
+    };
     eventsRef.current = [...eventsRef.current, entry];
     setEvents(eventsRef.current);
   }, []);
 
   // シミュレーションハーネス(Playwright)からの観測用フック
   useEffect(() => {
-    (window as unknown as Record<string, unknown>)["__wms"] = {
+    (window as unknown as Record<string, unknown>).__wms = {
       getEvents: () => eventsRef.current,
       isRunning: () => runningRef.current,
       getSession: () => sessionRef.current,
@@ -131,9 +136,7 @@ export default function App() {
     metricsCanvas.height = METRICS_H;
     const metricsCtx = metricsCanvas.getContext("2d", { willReadFrequently: true })!;
     metricsCtx.drawImage(sendCanvas, 0, 0, METRICS_W, METRICS_H);
-    const gray = toGrayscale(
-      metricsCtx.getImageData(0, 0, METRICS_W, METRICS_H).data,
-    );
+    const gray = toGrayscale(metricsCtx.getImageData(0, 0, METRICS_W, METRICS_H).data);
     const ink = inkRatio(gray);
     const change = lastSentGrayRef.current
       ? changeScore(gray, lastSentGrayRef.current)
@@ -167,7 +170,11 @@ export default function App() {
       if (res.intervene && res.message) {
         const detail = res.focus ? `[${res.focus}] ${res.message}` : res.message;
         log({ type: "advice", detail, metrics: { frameIndex } });
-        setAdvice({ message: res.message, atMs: elapsedMs, ...(res.focus ? { focus: res.focus } : {}) });
+        setAdvice({
+          message: res.message,
+          atMs: elapsedMs,
+          ...(res.focus ? { focus: res.focus } : {}),
+        });
         speakerRef.current.speak(res.message);
         log({ type: "speak", detail: res.message });
         throttleRef.current = markSpoke(throttleRef.current, Date.now());
@@ -326,6 +333,7 @@ export default function App() {
         </div>
 
         <div className="panel">
+          {/* biome-ignore lint/a11y/noStaticElementInteractions: マウスドラッグ専用のクロップ選択。キーボード操作は「クロップ解除」ボタンで代替 */}
           <div
             className="preview-wrap"
             ref={previewWrapRef}
@@ -369,18 +377,23 @@ export default function App() {
               </select>
             )}
             {!running ? (
-              <button data-testid="start" onClick={() => void start()}>
+              <button type="button" data-testid="start" onClick={() => void start()}>
                 開始
               </button>
             ) : (
-              <button data-testid="stop" className="secondary" onClick={stop}>
+              <button
+                type="button"
+                data-testid="stop"
+                className="secondary"
+                onClick={stop}
+              >
                 停止
               </button>
             )}
             {crop && (
               <button
+                type="button"
                 className="secondary"
-                disabled={running && false}
                 onClick={() => {
                   setCrop(null);
                   lastSentGrayRef.current = null;
@@ -478,13 +491,18 @@ export default function App() {
         </div>
         <div className="panel">
           <div className="controls" style={{ marginTop: 0, marginBottom: 8 }}>
-            <button className="secondary" onClick={exportLog} disabled={events.length === 0}>
+            <button
+              type="button"
+              className="secondary"
+              onClick={exportLog}
+              disabled={events.length === 0}
+            >
               ログをJSONで保存
             </button>
           </div>
           <div className="timeline" data-testid="timeline">
-            {[...events].reverse().map((e, i) => (
-              <div className="row" key={events.length - i}>
+            {[...events].reverse().map((e) => (
+              <div className="row" key={e.seq}>
                 <span className="t">{fmtSec(e.t)}</span>
                 <span className={`type ${e.type}`}>{e.type}</span>
                 <span>

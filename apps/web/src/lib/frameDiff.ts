@@ -18,11 +18,7 @@ export function toGrayscale(rgba: Uint8ClampedArray): Uint8Array {
  * JPEGノイズ・照明ゆらぎに強くするため、画素ごとの差が deadband を
  * 超えた画素の「割合」を返す(平均差ではなく)。
  */
-export function changeScore(
-  a: Uint8Array,
-  b: Uint8Array,
-  deadband = 24,
-): number {
+export function changeScore(a: Uint8Array, b: Uint8Array, deadband = 24): number {
   if (a.length !== b.length || a.length === 0) return 1;
   let changed = 0;
   for (let i = 0; i < a.length; i++) {

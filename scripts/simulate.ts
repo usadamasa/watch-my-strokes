@@ -11,8 +11,9 @@
  * シミュレーション映像ソースのセッションを2シナリオ実行して、
  * スクリーンショットとセッションログを docs/simulation/ に保存する。
  */
-import { mkdir } from "node:fs/promises";
+
 import { existsSync } from "node:fs";
+import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { chromium } from "playwright-core";
 import type { SessionEvent } from "../packages/shared/src/types.ts";
@@ -25,15 +26,14 @@ const WEB_PORT = 5179;
 const SESSION_MS = 52_000;
 
 function findChromium(): string {
-  const candidates = [
-    process.env["CHROMIUM_PATH"],
-    "/opt/pw-browsers/chromium",
-  ].filter((p): p is string => !!p);
+  const candidates = [process.env.CHROMIUM_PATH, "/opt/pw-browsers/chromium"].filter(
+    (p): p is string => !!p,
+  );
   for (const c of candidates) {
     if (existsSync(c) && Bun.file(c).size > 0) return c;
   }
   // playwright のディレクトリレイアウト(chromium-XXXX/chrome-linux/chrome)を探す
-  const base = process.env["PLAYWRIGHT_BROWSERS_PATH"] ?? "/opt/pw-browsers";
+  const base = process.env.PLAYWRIGHT_BROWSERS_PATH ?? "/opt/pw-browsers";
   const glob = new Bun.Glob("chromium-*/chrome-linux/chrome");
   for (const match of glob.scanSync({ cwd: base, onlyFiles: true })) {
     return path.join(base, match);
@@ -95,15 +95,15 @@ function renderReport(results: ScenarioResult[]): string {
       "",
       "| 指標 | 値 |",
       "|---|---|",
-      `| キャプチャ | ${c["capture"] ?? 0} |`,
+      `| キャプチャ | ${c.capture ?? 0} |`,
       `| 送信スキップ(変化なし) | ${c["skip-nochange"] ?? 0} |`,
       `| 送信スキップ(クールダウン) | ${c["skip-cooldown"] ?? 0} |`,
       `| 送信スキップ(問い合わせ中) | ${c["skip-inflight"] ?? 0} |`,
-      `| コーチ問い合わせ | ${c["ask"] ?? 0} |`,
-      `| 介入(アドバイス) | ${c["advice"] ?? 0} |`,
-      `| 沈黙判断 | ${c["silent"] ?? 0} |`,
-      `| 発話イベント | ${c["speak"] ?? 0} |`,
-      `| エラー | ${c["error"] ?? 0} |`,
+      `| コーチ問い合わせ | ${c.ask ?? 0} |`,
+      `| 介入(アドバイス) | ${c.advice ?? 0} |`,
+      `| 沈黙判断 | ${c.silent ?? 0} |`,
+      `| 発話イベント | ${c.speak ?? 0} |`,
+      `| エラー | ${c.error ?? 0} |`,
       "",
       "### コーチの発話タイムライン",
       "",

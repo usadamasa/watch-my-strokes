@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type { CoachDecision, CoachFocus } from "@wms/shared";
-import type { CoachContext, CoachProvider } from "./provider.ts";
 import { frameInstruction, systemPrompt } from "./prompt.ts";
+import type { CoachContext, CoachProvider } from "./provider.ts";
 
 const DEFAULT_MODEL = "claude-opus-5";
 /** モデルへ渡す画像は直近N枚に制限してトークンを抑える。 */
@@ -20,12 +20,12 @@ export function parseDecision(text: string): CoachDecision {
   if (!match) return { intervene: false };
   try {
     const raw = JSON.parse(match[0]) as Record<string, unknown>;
-    if (raw["intervene"] !== true) return { intervene: false };
+    if (raw.intervene !== true) return { intervene: false };
     const message =
-      typeof raw["message"] === "string" ? raw["message"].slice(0, 120) : undefined;
+      typeof raw.message === "string" ? raw.message.slice(0, 120) : undefined;
     if (!message) return { intervene: false };
-    const focus = FOCUS_VALUES.includes(raw["focus"] as CoachFocus)
-      ? (raw["focus"] as CoachFocus)
+    const focus = FOCUS_VALUES.includes(raw.focus as CoachFocus)
+      ? (raw.focus as CoachFocus)
       : undefined;
     return focus !== undefined
       ? { intervene: true, message, focus }
@@ -40,7 +40,7 @@ export class AnthropicCoach implements CoachProvider {
   readonly model: string;
   private client: Anthropic;
 
-  constructor(model = process.env["COACH_MODEL"] ?? DEFAULT_MODEL) {
+  constructor(model = process.env.COACH_MODEL ?? DEFAULT_MODEL) {
     this.model = model;
     this.client = new Anthropic();
   }
@@ -93,7 +93,7 @@ export class AnthropicCoach implements CoachProvider {
 
       if (response.stop_reason === "refusal") return { intervene: false };
       const textBlock = response.content.find((b) => b.type === "text");
-      if (!textBlock || textBlock.type !== "text") return { intervene: false };
+      if (textBlock?.type !== "text") return { intervene: false };
       return parseDecision(textBlock.text);
     } catch (error) {
       // コーチは止まるより黙るほうが良い。エラーは記録して沈黙にフォールバック。

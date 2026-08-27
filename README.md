@@ -45,12 +45,26 @@ bun run dev:web
 | `COACH_MODEL` | 使用モデルの上書き |
 | `COACH_PROVIDER=mock\|anthropic` | プロバイダの強制指定 |
 
-## テスト・型チェック
+## テスト・型チェック・リント
 
 ```bash
 bun test           # 変化検知 / クールダウン / コーチエンジンの単体テスト
 bun run typecheck  # tsgo (@typescript/native-preview) による型チェック
+bun run lint       # Biome (リント + フォーマットチェック)
+bun run format     # Biome による自動整形
 ```
+
+## CI
+
+`.github/workflows/ci.yaml` が Pull Request / merge queue で実行される:
+
+| ジョブ | 内容 |
+|---|---|
+| Build | tsgo 型チェック + Vite ビルド |
+| Test | `bun test --coverage`(カバレッジはジョブサマリーに出力) |
+| Lint | `biome ci`(リント + フォーマットチェック) |
+| Code Metrics | scc による行数・複雑度の計測(ジョブサマリーに出力) |
+| ci-status-check | 上記のいずれかが失敗したときだけ起動して失敗する集約ジョブ。ブランチ保護の required check にはこれを指定する |
 
 ## E2Eシミュレーション
 

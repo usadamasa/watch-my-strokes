@@ -47,6 +47,6 @@ export function markInFlight(state: ThrottleState, inFlight: boolean): ThrottleS
 }
 
 /** 発話した瞬間に呼び、クールダウンを開始する。 */
-export function markSpoke(state: ThrottleState, now: number): ThrottleState {
+export function markSpoke(_state: ThrottleState, now: number): ThrottleState {
   return { lastSpokeAt: now, inFlight: false };
 }

@@ -3,7 +3,10 @@ import type { FrameMetrics } from "@wms/shared";
 import { mockDecide, stageFor } from "../src/coach/mock.ts";
 import type { CoachContext } from "../src/coach/provider.ts";
 
-function ctx(metrics: Partial<FrameMetrics>, overrides?: Partial<CoachContext>): CoachContext {
+function ctx(
+  metrics: Partial<FrameMetrics>,
+  overrides?: Partial<CoachContext>,
+): CoachContext {
   const m: FrameMetrics = {
     frameIndex: 5,
     elapsedMs: 10_000,
@@ -59,12 +62,12 @@ describe("mockDecide", () => {
         decision: { intervene: true, message: "m", focus: "position" as const },
       },
     ];
-    expect(
-      mockDecide(ctx({ frameIndex: 6 }, { adviceHistory: history })).intervene,
-    ).toBe(false);
-    expect(
-      mockDecide(ctx({ frameIndex: 7 }, { adviceHistory: history })).intervene,
-    ).toBe(true);
+    expect(mockDecide(ctx({ frameIndex: 6 }, { adviceHistory: history })).intervene).toBe(
+      false,
+    );
+    expect(mockDecide(ctx({ frameIndex: 7 }, { adviceHistory: history })).intervene).toBe(
+      true,
+    );
   });
 
   test("同じ観点は大きな変化がない限り繰り返さない", () => {
