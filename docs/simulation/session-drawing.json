@@ -1,0 +1,695 @@
+{
+  "scenario": "drawing",
+  "counts": {
+    "info": 2,
+    "capture": 34,
+    "ask": 8,
+    "silent": 2,
+    "skip-nochange": 3,
+    "advice": 6,
+    "speak": 6,
+    "skip-cooldown": 23
+  },
+  "events": [
+    {
+      "t": 0,
+      "type": "info",
+      "detail": "開始: シミュレーション: ドローイング / provider=mock"
+    },
+    {
+      "t": 1506,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 0,
+        "elapsedMs": 1501,
+        "changeScore": 1,
+        "inkRatio": 0.001591435185185185
+      }
+    },
+    {
+      "t": 1507,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 0
+      }
+    },
+    {
+      "t": 1523,
+      "type": "silent",
+      "metrics": {
+        "frameIndex": 0
+      }
+    },
+    {
+      "t": 3005,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 1,
+        "elapsedMs": 3000,
+        "changeScore": 0.0021339699074074073,
+        "inkRatio": 0.0029296875
+      }
+    },
+    {
+      "t": 3005,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 1
+      }
+    },
+    {
+      "t": 3023,
+      "type": "silent",
+      "metrics": {
+        "frameIndex": 1
+      }
+    },
+    {
+      "t": 4503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 2,
+        "elapsedMs": 4500,
+        "changeScore": 0.00025318287037037036,
+        "inkRatio": 0.002785011574074074
+      }
+    },
+    {
+      "t": 4503,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 2
+      }
+    },
+    {
+      "t": 6003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 3,
+        "elapsedMs": 6000,
+        "changeScore": 0.0016999421296296296,
+        "inkRatio": 0.003689236111111111
+      }
+    },
+    {
+      "t": 6003,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 3
+      }
+    },
+    {
+      "t": 6027,
+      "type": "advice",
+      "detail": "[proportions] 細部より先に、全体のアタリを薄い線で取りましょう。紙の中央に大きく。",
+      "metrics": {
+        "frameIndex": 3
+      }
+    },
+    {
+      "t": 6027,
+      "type": "speak",
+      "detail": "細部より先に、全体のアタリを薄い線で取りましょう。紙の中央に大きく。"
+    },
+    {
+      "t": 7503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 4,
+        "elapsedMs": 7500,
+        "changeScore": 0.001048900462962963,
+        "inkRatio": 0.004087094907407407
+      }
+    },
+    {
+      "t": 7503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 4
+      }
+    },
+    {
+      "t": 9003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 5,
+        "elapsedMs": 9000,
+        "changeScore": 0.0019169560185185186,
+        "inkRatio": 0.004701967592592593
+      }
+    },
+    {
+      "t": 9003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 5
+      }
+    },
+    {
+      "t": 10503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 6,
+        "elapsedMs": 10500,
+        "changeScore": 0.002857349537037037,
+        "inkRatio": 0.00535300925925926
+      }
+    },
+    {
+      "t": 10503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 6
+      }
+    },
+    {
+      "t": 12002,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 7,
+        "elapsedMs": 12000,
+        "changeScore": 0.003002025462962963,
+        "inkRatio": 0.00538917824074074
+      }
+    },
+    {
+      "t": 12002,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 7
+      }
+    },
+    {
+      "t": 13504,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 8,
+        "elapsedMs": 13500,
+        "changeScore": 0.005678530092592593,
+        "inkRatio": 0.00734230324074074
+      }
+    },
+    {
+      "t": 13504,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 8
+      }
+    },
+    {
+      "t": 15003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 9,
+        "elapsedMs": 15000,
+        "changeScore": 0.007378472222222222,
+        "inkRatio": 0.008282696759259259
+      }
+    },
+    {
+      "t": 15003,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 9
+      }
+    },
+    {
+      "t": 15031,
+      "type": "advice",
+      "detail": "[position] 全体が右に寄っています。次の線から中心を少し左に意識しましょう。",
+      "metrics": {
+        "frameIndex": 9
+      }
+    },
+    {
+      "t": 15031,
+      "type": "speak",
+      "detail": "全体が右に寄っています。次の線から中心を少し左に意識しましょう。"
+    },
+    {
+      "t": 16522,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 10,
+        "elapsedMs": 16518,
+        "changeScore": 0,
+        "inkRatio": 0.008282696759259259
+      }
+    },
+    {
+      "t": 16522,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 10
+      }
+    },
+    {
+      "t": 18003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 11,
+        "elapsedMs": 18000,
+        "changeScore": 0,
+        "inkRatio": 0.008282696759259259
+      }
+    },
+    {
+      "t": 18003,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 11
+      }
+    },
+    {
+      "t": 19503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 12,
+        "elapsedMs": 19500,
+        "changeScore": 0.0005787037037037037,
+        "inkRatio": 0.008680555555555556
+      }
+    },
+    {
+      "t": 19503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 12
+      }
+    },
+    {
+      "t": 21004,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 13,
+        "elapsedMs": 21000,
+        "changeScore": 0.0017722800925925927,
+        "inkRatio": 0.009476273148148149
+      }
+    },
+    {
+      "t": 21004,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 13
+      }
+    },
+    {
+      "t": 22503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 14,
+        "elapsedMs": 22500,
+        "changeScore": 0.0023509837962962963,
+        "inkRatio": 0.009874131944444444
+      }
+    },
+    {
+      "t": 22503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 14
+      }
+    },
+    {
+      "t": 24006,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 15,
+        "elapsedMs": 24000,
+        "changeScore": 0.004159432870370371,
+        "inkRatio": 0.011248553240740741
+      }
+    },
+    {
+      "t": 24006,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 15
+      }
+    },
+    {
+      "t": 24034,
+      "type": "advice",
+      "detail": "[position] 水平の基準線に対して傾いています。紙を回さず、手首の角度を直しましょう。",
+      "metrics": {
+        "frameIndex": 15
+      }
+    },
+    {
+      "t": 24034,
+      "type": "speak",
+      "detail": "水平の基準線に対して傾いています。紙を回さず、手首の角度を直しましょう。"
+    },
+    {
+      "t": 25502,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 16,
+        "elapsedMs": 25500,
+        "changeScore": 0.001953125,
+        "inkRatio": 0.012369791666666666
+      }
+    },
+    {
+      "t": 25502,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 16
+      }
+    },
+    {
+      "t": 27003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 17,
+        "elapsedMs": 27000,
+        "changeScore": 0.001808449074074074,
+        "inkRatio": 0.012297453703703705
+      }
+    },
+    {
+      "t": 27003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 17
+      }
+    },
+    {
+      "t": 28502,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 18,
+        "elapsedMs": 28500,
+        "changeScore": 0.001808449074074074,
+        "inkRatio": 0.012297453703703705
+      }
+    },
+    {
+      "t": 28503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 18
+      }
+    },
+    {
+      "t": 30003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 19,
+        "elapsedMs": 30000,
+        "changeScore": 0.001808449074074074,
+        "inkRatio": 0.012297453703703705
+      }
+    },
+    {
+      "t": 30003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 19
+      }
+    },
+    {
+      "t": 31503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 20,
+        "elapsedMs": 31500,
+        "changeScore": 0.0035083912037037037,
+        "inkRatio": 0.013201678240740741
+      }
+    },
+    {
+      "t": 31503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 20
+      }
+    },
+    {
+      "t": 33003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 21,
+        "elapsedMs": 33000,
+        "changeScore": 0.00441261574074074,
+        "inkRatio": 0.013961226851851851
+      }
+    },
+    {
+      "t": 33003,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 21
+      }
+    },
+    {
+      "t": 33034,
+      "type": "advice",
+      "detail": "[position] 全体が右に寄っています。次の線から中心を少し左に意識しましょう。",
+      "metrics": {
+        "frameIndex": 21
+      }
+    },
+    {
+      "t": 33035,
+      "type": "speak",
+      "detail": "全体が右に寄っています。次の線から中心を少し左に意識しましょう。"
+    },
+    {
+      "t": 34503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 22,
+        "elapsedMs": 34500,
+        "changeScore": 0.001121238425925926,
+        "inkRatio": 0.014214409722222222
+      }
+    },
+    {
+      "t": 34503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 22
+      }
+    },
+    {
+      "t": 36003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 23,
+        "elapsedMs": 36000,
+        "changeScore": 0.0022786458333333335,
+        "inkRatio": 0.01439525462962963
+      }
+    },
+    {
+      "t": 36003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 23
+      }
+    },
+    {
+      "t": 37503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 24,
+        "elapsedMs": 37500,
+        "changeScore": 0.0032913773148148147,
+        "inkRatio": 0.014937789351851851
+      }
+    },
+    {
+      "t": 37503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 24
+      }
+    },
+    {
+      "t": 39003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 25,
+        "elapsedMs": 39000,
+        "changeScore": 0.004050925925925926,
+        "inkRatio": 0.015625
+      }
+    },
+    {
+      "t": 39003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 25
+      }
+    },
+    {
+      "t": 40503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 26,
+        "elapsedMs": 40500,
+        "changeScore": 0.003942418981481482,
+        "inkRatio": 0.015480324074074073
+      }
+    },
+    {
+      "t": 40503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 26
+      }
+    },
+    {
+      "t": 42003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 27,
+        "elapsedMs": 42000,
+        "changeScore": 0.003942418981481482,
+        "inkRatio": 0.015480324074074073
+      }
+    },
+    {
+      "t": 42003,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 27
+      }
+    },
+    {
+      "t": 42043,
+      "type": "advice",
+      "detail": "[position] 水平の基準線に対して傾いています。紙を回さず、手首の角度を直しましょう。",
+      "metrics": {
+        "frameIndex": 27
+      }
+    },
+    {
+      "t": 42043,
+      "type": "speak",
+      "detail": "水平の基準線に対して傾いています。紙を回さず、手首の角度を直しましょう。"
+    },
+    {
+      "t": 43503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 28,
+        "elapsedMs": 43500,
+        "changeScore": 0.0006872106481481482,
+        "inkRatio": 0.015950520833333332
+      }
+    },
+    {
+      "t": 43503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 28
+      }
+    },
+    {
+      "t": 45003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 29,
+        "elapsedMs": 45000,
+        "changeScore": 0.0017722800925925927,
+        "inkRatio": 0.016818576388888888
+      }
+    },
+    {
+      "t": 45003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 29
+      }
+    },
+    {
+      "t": 46503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 30,
+        "elapsedMs": 46500,
+        "changeScore": 0.0029658564814814816,
+        "inkRatio": 0.017686631944444444
+      }
+    },
+    {
+      "t": 46503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 30
+      }
+    },
+    {
+      "t": 48003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 31,
+        "elapsedMs": 48000,
+        "changeScore": 0.0030381944444444445,
+        "inkRatio": 0.017795138888888888
+      }
+    },
+    {
+      "t": 48003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 31
+      }
+    },
+    {
+      "t": 49503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 32,
+        "elapsedMs": 49500,
+        "changeScore": 0.0030381944444444445,
+        "inkRatio": 0.017795138888888888
+      }
+    },
+    {
+      "t": 49503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 32
+      }
+    },
+    {
+      "t": 51003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 33,
+        "elapsedMs": 51000,
+        "changeScore": 0.0030381944444444445,
+        "inkRatio": 0.017795138888888888
+      }
+    },
+    {
+      "t": 51003,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 33
+      }
+    },
+    {
+      "t": 51047,
+      "type": "advice",
+      "detail": "[line-quality] 線が途切れがちです。肘から動かして、一本の線を一息で引きましょう。",
+      "metrics": {
+        "frameIndex": 33
+      }
+    },
+    {
+      "t": 51047,
+      "type": "speak",
+      "detail": "線が途切れがちです。肘から動かして、一本の線を一息で引きましょう。"
+    },
+    {
+      "t": 52347,
+      "type": "info",
+      "detail": "停止"
+    }
+  ]
+}

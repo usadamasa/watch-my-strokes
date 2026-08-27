@@ -104,8 +104,12 @@ export function mockDecide(ctx: CoachContext): CoachDecision {
     return { intervene: false };
   }
 
+  // 同じ観点の何回目の指摘かで言い回しを変える(全く同じ文言の連発を避ける)
+  const sameFocusCount = ctx.adviceHistory.filter(
+    (a) => a.decision.focus === focus,
+  ).length;
   const variants = MESSAGES[focus][ctx.mode];
-  const message = variants[m.frameIndex % variants.length]!;
+  const message = variants[sameFocusCount % variants.length]!;
   return { intervene: true, message, focus };
 }
 
