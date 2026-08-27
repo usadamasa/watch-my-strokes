@@ -1,0 +1,669 @@
+{
+  "scenario": "handwriting",
+  "counts": {
+    "info": 2,
+    "capture": 34,
+    "ask": 6,
+    "silent": 2,
+    "advice": 4,
+    "speak": 4,
+    "skip-cooldown": 10,
+    "skip-nochange": 18
+  },
+  "events": [
+    {
+      "t": 0,
+      "type": "info",
+      "detail": "開始: シミュレーション: 手書き / provider=mock"
+    },
+    {
+      "t": 1506,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 0,
+        "elapsedMs": 1501,
+        "changeScore": 1,
+        "inkRatio": 0.00043402777777777775
+      }
+    },
+    {
+      "t": 1506,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 0
+      }
+    },
+    {
+      "t": 1522,
+      "type": "silent",
+      "metrics": {
+        "frameIndex": 0
+      }
+    },
+    {
+      "t": 3006,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 1,
+        "elapsedMs": 3000,
+        "changeScore": 0.0029658564814814816,
+        "inkRatio": 0.0025318287037037037
+      }
+    },
+    {
+      "t": 3006,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 1
+      }
+    },
+    {
+      "t": 3028,
+      "type": "silent",
+      "metrics": {
+        "frameIndex": 1
+      }
+    },
+    {
+      "t": 4504,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 2,
+        "elapsedMs": 4500,
+        "changeScore": 0.0013744212962962963,
+        "inkRatio": 0.003074363425925926
+      }
+    },
+    {
+      "t": 4505,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 2
+      }
+    },
+    {
+      "t": 4528,
+      "type": "advice",
+      "detail": "[proportions] 文字の大きさを揃えることを最優先に。1行目と同じ高さを意識しましょう。",
+      "metrics": {
+        "frameIndex": 2
+      }
+    },
+    {
+      "t": 4529,
+      "type": "speak",
+      "detail": "文字の大きさを揃えることを最優先に。1行目と同じ高さを意識しましょう。"
+    },
+    {
+      "t": 6003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 3,
+        "elapsedMs": 6000,
+        "changeScore": 0.0005063657407407407,
+        "inkRatio": 0.003399884259259259
+      }
+    },
+    {
+      "t": 6003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 3
+      }
+    },
+    {
+      "t": 7503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 4,
+        "elapsedMs": 7500,
+        "changeScore": 0.0026041666666666665,
+        "inkRatio": 0.005172164351851852
+      }
+    },
+    {
+      "t": 7503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 4
+      }
+    },
+    {
+      "t": 9003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 5,
+        "elapsedMs": 9000,
+        "changeScore": 0.003472222222222222,
+        "inkRatio": 0.005750868055555556
+      }
+    },
+    {
+      "t": 9003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 5
+      }
+    },
+    {
+      "t": 10503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 6,
+        "elapsedMs": 10500,
+        "changeScore": 0.0038700810185185184,
+        "inkRatio": 0.005967881944444444
+      }
+    },
+    {
+      "t": 10503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 6
+      }
+    },
+    {
+      "t": 12003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 7,
+        "elapsedMs": 12000,
+        "changeScore": 0.00538917824074074,
+        "inkRatio": 0.00730613425925926
+      }
+    },
+    {
+      "t": 12003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 7
+      }
+    },
+    {
+      "t": 13504,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 8,
+        "elapsedMs": 13500,
+        "changeScore": 0.006184895833333333,
+        "inkRatio": 0.007884837962962963
+      }
+    },
+    {
+      "t": 13504,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 8
+      }
+    },
+    {
+      "t": 13528,
+      "type": "advice",
+      "detail": "[proportions] まず字の外形(四角の枠)をイメージしてから書き始めましょう。",
+      "metrics": {
+        "frameIndex": 8
+      }
+    },
+    {
+      "t": 13528,
+      "type": "speak",
+      "detail": "まず字の外形(四角の枠)をイメージしてから書き始めましょう。"
+    },
+    {
+      "t": 15003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 9,
+        "elapsedMs": 15000,
+        "changeScore": 0,
+        "inkRatio": 0.007884837962962963
+      }
+    },
+    {
+      "t": 15003,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 9
+      }
+    },
+    {
+      "t": 16503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 10,
+        "elapsedMs": 16500,
+        "changeScore": 0,
+        "inkRatio": 0.007884837962962963
+      }
+    },
+    {
+      "t": 16503,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 10
+      }
+    },
+    {
+      "t": 18004,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 11,
+        "elapsedMs": 18000,
+        "changeScore": 0,
+        "inkRatio": 0.007884837962962963
+      }
+    },
+    {
+      "t": 18004,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 11
+      }
+    },
+    {
+      "t": 19503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 12,
+        "elapsedMs": 19500,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.008101851851851851
+      }
+    },
+    {
+      "t": 19503,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 12
+      }
+    },
+    {
+      "t": 21003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 13,
+        "elapsedMs": 21000,
+        "changeScore": 0.0013744212962962963,
+        "inkRatio": 0.009078414351851851
+      }
+    },
+    {
+      "t": 21003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 13
+      }
+    },
+    {
+      "t": 22503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 14,
+        "elapsedMs": 22500,
+        "changeScore": 0.001953125,
+        "inkRatio": 0.00951244212962963
+      }
+    },
+    {
+      "t": 22503,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 14
+      }
+    },
+    {
+      "t": 22533,
+      "type": "advice",
+      "detail": "[position] 行がだんだん右下がりになっています。ガイド線を意識して水平に戻しましょう。",
+      "metrics": {
+        "frameIndex": 14
+      }
+    },
+    {
+      "t": 22534,
+      "type": "speak",
+      "detail": "行がだんだん右下がりになっています。ガイド線を意識して水平に戻しましょう。"
+    },
+    {
+      "t": 24003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 15,
+        "elapsedMs": 24000,
+        "changeScore": 0.0003255208333333333,
+        "inkRatio": 0.00972945601851852
+      }
+    },
+    {
+      "t": 24003,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 15
+      }
+    },
+    {
+      "t": 25502,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 16,
+        "elapsedMs": 25500,
+        "changeScore": 0.0016999421296296296,
+        "inkRatio": 0.01070601851851852
+      }
+    },
+    {
+      "t": 25502,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 16
+      }
+    },
+    {
+      "t": 27003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 17,
+        "elapsedMs": 27000,
+        "changeScore": 0.003074363425925926,
+        "inkRatio": 0.011827256944444444
+      }
+    },
+    {
+      "t": 27003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 17
+      }
+    },
+    {
+      "t": 28503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 18,
+        "elapsedMs": 28501,
+        "changeScore": 0.0031105324074074073,
+        "inkRatio": 0.011827256944444444
+      }
+    },
+    {
+      "t": 28503,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 18
+      }
+    },
+    {
+      "t": 30003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 19,
+        "elapsedMs": 30000,
+        "changeScore": 0.004521122685185185,
+        "inkRatio": 0.012839988425925927
+      }
+    },
+    {
+      "t": 30003,
+      "type": "skip-cooldown",
+      "metrics": {
+        "frameIndex": 19
+      }
+    },
+    {
+      "t": 31504,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 20,
+        "elapsedMs": 31500,
+        "changeScore": 0.005461516203703704,
+        "inkRatio": 0.013599537037037037
+      }
+    },
+    {
+      "t": 31504,
+      "type": "ask",
+      "metrics": {
+        "frameIndex": 20
+      }
+    },
+    {
+      "t": 31548,
+      "type": "advice",
+      "detail": "[position] 文字の間隔が詰まってきました。半文字分の間隔を保ちましょう。",
+      "metrics": {
+        "frameIndex": 20
+      }
+    },
+    {
+      "t": 31548,
+      "type": "speak",
+      "detail": "文字の間隔が詰まってきました。半文字分の間隔を保ちましょう。"
+    },
+    {
+      "t": 33003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 21,
+        "elapsedMs": 33000,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 33003,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 21
+      }
+    },
+    {
+      "t": 34503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 22,
+        "elapsedMs": 34500,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 34503,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 22
+      }
+    },
+    {
+      "t": 36003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 23,
+        "elapsedMs": 36000,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 36003,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 23
+      }
+    },
+    {
+      "t": 37502,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 24,
+        "elapsedMs": 37500,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 37502,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 24
+      }
+    },
+    {
+      "t": 39003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 25,
+        "elapsedMs": 39000,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 39003,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 25
+      }
+    },
+    {
+      "t": 40503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 26,
+        "elapsedMs": 40500,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 40503,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 26
+      }
+    },
+    {
+      "t": 42003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 27,
+        "elapsedMs": 42000,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 42003,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 27
+      }
+    },
+    {
+      "t": 43503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 28,
+        "elapsedMs": 43500,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 43503,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 28
+      }
+    },
+    {
+      "t": 45002,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 29,
+        "elapsedMs": 45000,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 45002,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 29
+      }
+    },
+    {
+      "t": 46502,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 30,
+        "elapsedMs": 46500,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 46502,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 30
+      }
+    },
+    {
+      "t": 48003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 31,
+        "elapsedMs": 48000,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 48003,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 31
+      }
+    },
+    {
+      "t": 49503,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 32,
+        "elapsedMs": 49501,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 49503,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 32
+      }
+    },
+    {
+      "t": 51003,
+      "type": "capture",
+      "metrics": {
+        "frameIndex": 33,
+        "elapsedMs": 51000,
+        "changeScore": 0.00028935185185185184,
+        "inkRatio": 0.013346354166666666
+      }
+    },
+    {
+      "t": 51003,
+      "type": "skip-nochange",
+      "metrics": {
+        "frameIndex": 33
+      }
+    },
+    {
+      "t": 52404,
+      "type": "info",
+      "detail": "停止"
+    }
+  ]
+}
