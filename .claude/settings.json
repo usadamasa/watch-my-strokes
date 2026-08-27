@@ -1,5 +1,5 @@
 {
-"env": {
+  "env": {
     "CLAUDE_ALLOW_GH_PR_WRITES": "1",
     "CLAUDE_ALLOW_GH_ISSUE_WRITES": "1"
   },
