@@ -18,7 +18,7 @@ export interface FrameMetrics {
 
 export interface CreateSessionRequest {
   mode: CoachMode;
-  /** 省略時はサーバー既定(APIキーがあれば anthropic、なければ mock)。 */
+  /** 省略時はサーバー既定(Anthropic の認証情報が解決できれば anthropic、なければ mock)。 */
   provider?: ProviderId;
 }
 
