@@ -5,6 +5,7 @@ import type {
   ProviderId,
 } from "@wms/shared";
 import { AnthropicCoach } from "./coach/anthropic.ts";
+import { resolveDefaultProviderId } from "./coach/credentials.ts";
 import { CoachEngine, SessionNotFoundError } from "./coach/engine.ts";
 import { MockCoach } from "./coach/mock.ts";
 import type { CoachProvider } from "./coach/provider.ts";
@@ -12,17 +13,16 @@ import type { CoachProvider } from "./coach/provider.ts";
 const PORT = Number(process.env.PORT ?? 8787);
 
 /**
- * プロバイダの解決順: 明示指定 > COACH_PROVIDER 環境変数 >
- * ANTHROPIC_API_KEY があれば anthropic、なければ mock。
+ * 起動時に一度だけ解決する既定プロバイダ。
+ * 解決順: COACH_PROVIDER 環境変数 > SDK が認証情報(API キー / ant auth login のプロファイル /
+ * Workload Identity Federation)を解決できれば anthropic、できなければ mock。
+ * 起動後に `ant auth login` しても反映されないので、その場合はサーバーを再起動する。
  */
-function defaultProviderId(): ProviderId {
-  const env = process.env.COACH_PROVIDER;
-  if (env === "anthropic" || env === "mock") return env;
-  return process.env.ANTHROPIC_API_KEY ? "anthropic" : "mock";
-}
+const DEFAULT_PROVIDER: ProviderId = await resolveDefaultProviderId();
 
+/** セッション作成時の解決順: 明示指定 > 起動時に解決した既定。 */
 function makeProvider(id?: ProviderId): CoachProvider {
-  const resolved = id ?? defaultProviderId();
+  const resolved = id ?? DEFAULT_PROVIDER;
   return resolved === "anthropic" ? new AnthropicCoach() : new MockCoach();
 }
 
@@ -42,7 +42,7 @@ const server = Bun.serve({
   port: PORT,
   routes: {
     "/api/health": {
-      GET: () => json({ ok: true, defaultProvider: defaultProviderId() }),
+      GET: () => json({ ok: true, defaultProvider: DEFAULT_PROVIDER }),
     },
     "/api/sessions": {
       OPTIONS: () => new Response(null, { status: 204, headers: CORS_HEADERS }),
@@ -83,5 +83,10 @@ const server = Bun.serve({
 });
 
 console.log(
-  `[server] listening on http://localhost:${server.port} (default provider: ${defaultProviderId()})`,
+  `[server] listening on http://localhost:${server.port} (default provider: ${DEFAULT_PROVIDER})`,
 );
+if (DEFAULT_PROVIDER === "mock" && !process.env.COACH_PROVIDER) {
+  console.log(
+    "[server] Claude を使うには ANTHROPIC_API_KEY を設定するか `ant auth login` してから再起動する",
+  );
+}

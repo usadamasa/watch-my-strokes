@@ -38,12 +38,20 @@ bun run dev:web
 
 ### コーチのプロバイダ
 
+サーバー起動時に Anthropic SDK の認証情報が解決できるかを判定し、既定プロバイダを決める。
+
+| 認証情報 | 挙動 |
+|---|---|
+| `ANTHROPIC_API_KEY` または `ANTHROPIC_AUTH_TOKEN` を設定 | Claude(既定 `claude-opus-5`)が画像を見てコーチングする |
+| [`ant auth login`](https://github.com/anthropics/anthropic-cli) 済み(`~/.config/anthropic/` の OAuth プロファイル) | 同上。API キーを環境変数に置かずに済む。ログイン後はサーバーを再起動する |
+| どちらもなし | 決定論的なモックコーチ(開発・CI・シミュレーション用) |
+
 | 環境変数 | 挙動 |
 |---|---|
-| `ANTHROPIC_API_KEY` を設定 | Claude(既定 `claude-opus-5`)が画像を見てコーチングする |
-| 未設定 | 決定論的なモックコーチ(開発・CI・シミュレーション用) |
 | `COACH_MODEL` | 使用モデルの上書き |
-| `COACH_PROVIDER=mock\|anthropic` | プロバイダの強制指定 |
+| `COACH_PROVIDER=mock\|anthropic` | 自動判定を無視してプロバイダを強制指定 |
+
+`ANTHROPIC_API_KEY` が export されたままだと OAuth プロファイルより優先される。`ant auth status` でどの認証情報が使われるか確認できる。
 
 ## テスト・型チェック・リント
 
