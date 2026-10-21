@@ -82,5 +82,13 @@ bun run format     # Biome による自動整形
 bun run simulate
 ```
 
-ヘッドレスChromiumがシミュレーション映像(徐々に描き進む線画/手書き)でセッションを実行し、
+ヘッドレスの Chrome がシミュレーション映像(徐々に描き進む線画/手書き)でセッションを実行し、
 スクリーンショット・セッションログ・レポートを `docs/simulation/` に出力する。
+
+ブラウザはマシンにインストールされた Google Chrome を使う(playwright-core の `channel: "chrome"`)。
+Chrome の security fix はマシンの Chrome の更新で取り込む。playwright-core 同梱の Chromium は
+修正版への追従が遅れるため使わない。別のブラウザを使うときは `CHROMIUM_PATH` に実行ファイルのパスを指定する:
+
+```bash
+CHROMIUM_PATH=/path/to/chrome bun run simulate
+```

@@ -7,16 +7,16 @@
  *
  *   bun run scripts/simulate.ts
  *
- * サーバー(モックコーチ)と Vite を起動し、ヘッドレスChromiumで
+ * サーバー(モックコーチ)と Vite を起動し、ヘッドレスの Chrome で
  * シミュレーション映像ソースのセッションを2シナリオ実行して、
  * スクリーンショットとセッションログを docs/simulation/ に保存する。
  */
 
-import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
-import { chromium } from "playwright-core";
+import { chromium, type LaunchOptions } from "playwright-core";
 import type { SessionEvent } from "../packages/shared/src/types.ts";
+import { resolveLaunchOptions } from "./launchOptions.ts";
 
 const ROOT = path.resolve(import.meta.dir, "..");
 const OUT_DIR = path.join(ROOT, "docs", "simulation");
@@ -24,22 +24,6 @@ const SERVER_PORT = 8791;
 const WEB_PORT = 5179;
 /** 各シナリオの観察時間(ms)。 */
 const SESSION_MS = 52_000;
-
-function findChromium(): string {
-  const candidates = [process.env.CHROMIUM_PATH, "/opt/pw-browsers/chromium"].filter(
-    (p): p is string => !!p,
-  );
-  for (const c of candidates) {
-    if (existsSync(c) && Bun.file(c).size > 0) return c;
-  }
-  // playwright のディレクトリレイアウト(chromium-XXXX/chrome-linux/chrome)を探す
-  const base = process.env.PLAYWRIGHT_BROWSERS_PATH ?? "/opt/pw-browsers";
-  const glob = new Bun.Glob("chromium-*/chrome-linux/chrome");
-  for (const match of glob.scanSync({ cwd: base, onlyFiles: true })) {
-    return path.join(base, match);
-  }
-  throw new Error("Chromium が見つかりません。CHROMIUM_PATH を設定してください。");
-}
 
 async function waitForHttp(url: string, timeoutMs = 30_000): Promise<void> {
   const deadline = Date.now() + timeoutMs;
@@ -79,7 +63,7 @@ function renderReport(results: ScenarioResult[]): string {
   const lines: string[] = [
     "# E2Eシミュレーション結果",
     "",
-    "`bun run simulate` により自動生成。ヘッドレスChromium上でシミュレーション映像ソース",
+    "`bun run simulate` により自動生成。ヘッドレスの Chrome 上でシミュレーション映像ソース",
     "(徐々に描き進む合成映像)を再生し、モックコーチとの全ループを検証した。",
     "",
     "パイプライン: 映像 → 1.5秒毎キャプチャ → 変化検知(足切り) → クールダウン →",
@@ -131,12 +115,13 @@ function renderReport(results: ScenarioResult[]): string {
 }
 
 async function runScenario(
-  browserPath: string,
+  launchOptions: LaunchOptions,
   scenario: "sim-drawing" | "sim-handwriting",
 ): Promise<ScenarioResult> {
   const name = scenario.replace("sim-", "");
   console.log(`[simulate] scenario: ${name}`);
-  const browser = await chromium.launch({ executablePath: browserPath });
+  const browser = await chromium.launch(launchOptions);
+  console.log(`[simulate] browser version: ${browser.version()}`);
   try {
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     await page.goto(`http://localhost:${WEB_PORT}/`);
@@ -189,12 +174,12 @@ async function main() {
   try {
     await waitForHttp(`http://localhost:${SERVER_PORT}/api/health`);
     await waitForHttp(`http://localhost:${WEB_PORT}/`);
-    const browserPath = findChromium();
-    console.log(`[simulate] chromium: ${browserPath}`);
+    const launchOptions = resolveLaunchOptions(process.env);
+    console.log(`[simulate] launch options: ${JSON.stringify(launchOptions)}`);
 
     const results: ScenarioResult[] = [];
-    results.push(await runScenario(browserPath, "sim-drawing"));
-    results.push(await runScenario(browserPath, "sim-handwriting"));
+    results.push(await runScenario(launchOptions, "sim-drawing"));
+    results.push(await runScenario(launchOptions, "sim-handwriting"));
 
     await Bun.write(path.join(OUT_DIR, "report.md"), renderReport(results));
     console.log(`[simulate] done. see docs/simulation/report.md`);

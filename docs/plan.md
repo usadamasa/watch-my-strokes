@@ -13,7 +13,7 @@
 | LLM | `@anthropic-ai/sdk`(既定モデル `claude-opus-5`) | vision対応。プロバイダIFで差し替え可能、モック同梱 |
 | 共有型 | `packages/shared`(TSソースを直接参照) | フロント/サーバー間のAPI型を一元化 |
 | テスト | `bun test` | 変化検知・クールダウン・コーチエンジンの単体テスト |
-| E2E/シミュレーション | Playwright(同梱Chromium) | カメラなし環境で全ループを検証しレポート生成 |
+| E2E/シミュレーション | playwright-core(マシンの Chrome) | カメラなし環境で全ループを検証しレポート生成 |
 
 ## リポジトリ構成
 
