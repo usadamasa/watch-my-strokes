@@ -1,0 +1,28 @@
+version: 2
+updates:
+  # 2 つとも group は作らず、パッケージごとに PR を出させる。group の PR が開いた
+  # ままだと同じ group の更新が全部止まり、1 つの更新の不具合で他の更新まで
+  # 巻き添えになる。
+  #
+  # bun は version updates だけで、security updates は出ない。依存グラフも
+  # package.json の直接依存しか載せず、bun.lock の推移的依存の alert は出ない。
+  # 脆弱性の修正も週次の version updates を待つか、`bun audit` で見つけて手で上げる。
+  #
+  # ルートの 1 エントリで apps/* と packages/* の依存も上がる。Dependabot の bun
+  # の file fetcher がルート package.json の workspaces から各 package.json を
+  # 取りに行く (dependabot-core 200ff44、2026-10 時点)。
+  - package-ecosystem: bun
+    directory: /
+    schedule:
+      interval: weekly
+
+  # directory: / は .github/workflows/ しか見ず、composite action
+  # (.github/actions/*) の uses: を上げないので directories で足す。
+  # setup-bun は今のところ uses: を持たず、Bun の版 (inputs.bun-version) も
+  # Dependabot の対象外なので手で上げる。
+  - package-ecosystem: github-actions
+    directories:
+      - /
+      - /.github/actions/*
+    schedule:
+      interval: weekly
