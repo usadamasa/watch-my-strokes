@@ -59,7 +59,7 @@ jobs:
         uses: ./.github/actions/setup-bun
 
       - name: Run tests with coverage
-        run: bun test apps packages --coverage 2>&1 | tee test-output.txt
+        run: bun test apps packages scripts --coverage 2>&1 | tee test-output.txt
 
       - name: Publish coverage report
         if: always()
