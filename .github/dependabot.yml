@@ -1,8 +1,12 @@
 version: 2
 updates:
-  # 2 つとも group は作らず、パッケージごとに PR を出させる。group の PR が開いた
+  # group は原則作らず、パッケージごとに PR を出させる。group の PR が開いた
   # ままだと同じ group の更新が全部止まり、1 つの更新の不具合で他の更新まで
   # 巻き添えになる。
+  #
+  # 例外は react の group。react と react-dom は同じ版でないと実行時に壊れ、
+  # 別々の PR だと片方だけ merge されて版がずれる。各 PR の CI も組み合わせた
+  # 状態を検証しない。型定義も同じ PR で上げる。
   #
   # bun は version updates だけで、security updates は出ない。依存グラフも
   # package.json の直接依存しか載せず、bun.lock の推移的依存の alert は出ない。
@@ -15,6 +19,13 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    groups:
+      react:
+        patterns:
+          - react
+          - react-dom
+          - "@types/react"
+          - "@types/react-dom"
 
   # directory: / は .github/workflows/ しか見ず、composite action
   # (.github/actions/*) の uses: を上げないので directories で足す。
