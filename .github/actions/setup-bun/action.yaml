@@ -1,20 +1,16 @@
 name: Setup Bun
-description: Install a pinned Bun version and workspace dependencies
-
-inputs:
-  bun-version:
-    description: Bun version to install
-    required: false
-    default: "1.4.0"
+description: Load the flake.nix devShell (Bun) and install workspace dependencies
 
 runs:
   using: composite
   steps:
-    - name: Install Bun
-      shell: bash
-      run: |
-        curl -fsSL https://bun.sh/install | bash -s "bun-v${{ inputs.bun-version }}"
-        echo "$HOME/.bun/bin" >> "$GITHUB_PATH"
+    - name: Install Nix
+      uses: DeterminateSystems/determinate-nix-action@f296148a827001a9a82d3685b53210c06e5d3b67  # v3.24.0
+
+    # devShell の PATH と env を GITHUB_PATH / GITHUB_ENV に書くので、以後の step は素で動く。
+    # Bun の版は flake.lock の nixpkgs が決める
+    - name: Load devShell
+      uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a  # v1.2.1
 
     - name: Install dependencies
       shell: bash
