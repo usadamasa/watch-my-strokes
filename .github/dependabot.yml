@@ -29,8 +29,8 @@ updates:
 
   # directory: / は .github/workflows/ しか見ず、composite action
   # (.github/actions/*) の uses: を上げないので directories で足す。
-  # setup-bun は今のところ uses: を持たず、Bun の版 (inputs.bun-version) も
-  # Dependabot の対象外なので手で上げる。
+  # Bun の版は flake.lock の nixpkgs が決めるので Dependabot の対象外。
+  # nix flake update で上げる。
   - package-ecosystem: github-actions
     directories:
       - /
