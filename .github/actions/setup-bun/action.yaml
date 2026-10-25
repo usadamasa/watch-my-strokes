@@ -4,13 +4,10 @@ description: Load the flake.nix devShell (Bun) and install workspace dependencie
 runs:
   using: composite
   steps:
-    - name: Install Nix
-      uses: DeterminateSystems/determinate-nix-action@f296148a827001a9a82d3685b53210c06e5d3b67  # v3.24.0
-
-    # devShell の PATH と env を GITHUB_PATH / GITHUB_ENV に書くので、以後の step は素で動く。
+    # Nix の導入と devShell の読み込みは gh-manage の共有 action に任せる。
     # Bun の版は flake.lock の nixpkgs が決める
-    - name: Load devShell
-      uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a  # v1.2.1
+    - name: Setup Nix devShell
+      uses: usadamasa/gh-manage/actions/setup-nix@main
 
     - name: Install dependencies
       shell: bash
