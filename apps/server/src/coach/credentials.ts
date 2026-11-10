@@ -10,10 +10,14 @@ function readEnv(name: string): string | undefined {
  * `new Anthropic()` が認証情報を解決できるかを、SDK 自身のローダーで判定する。
  *
  * 判定順は SDK の解決順に合わせる:
- *   1. `ANTHROPIC_API_KEY` / `ANTHROPIC_AUTH_TOKEN`
- *   2. `ant auth login` のプロファイル(`<config_dir>/configs/<profile>.json`)。
- *      user_oauth の場合は credentials ファイルも要る(`ant auth logout` 後は設定だけ残る)
- *   3. Workload Identity Federation の環境変数
+ *   1. `ANTHROPIC_API_KEY`
+ *   2. `ANTHROPIC_AUTH_TOKEN`
+ *   3. `ANTHROPIC_PROFILE` が指すプロファイル。指す先が無いと SDK が例外を投げるので mock に倒す
+ *   4. Workload Identity Federation の環境変数
+ *   5. `ant auth login` の active profile(`<config_dir>/configs/<profile>.json`)
+ *
+ * 3 と 5 が user_oauth なら credentials ファイルも要る(`ant auth logout` 後は設定だけ残る)。
+ * 3 以降の順は SDK の `loadConfig()` が決める。
  */
 export async function hasAnthropicCredentials(): Promise<boolean> {
   if (readEnv("ANTHROPIC_API_KEY") || readEnv("ANTHROPIC_AUTH_TOKEN")) {

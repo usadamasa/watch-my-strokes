@@ -13,7 +13,16 @@ const ENV_KEYS = [
   "ANTHROPIC_PROFILE",
   "ANTHROPIC_FEDERATION_RULE_ID",
   "ANTHROPIC_ORGANIZATION_ID",
+  "ANTHROPIC_IDENTITY_TOKEN",
+  "ANTHROPIC_IDENTITY_TOKEN_FILE",
 ] as const;
+
+/** Workload Identity Federation を環境変数だけで構成する。 */
+function setFederationEnv() {
+  process.env.ANTHROPIC_FEDERATION_RULE_ID = "fdrl_test";
+  process.env.ANTHROPIC_ORGANIZATION_ID = "org_test";
+  process.env.ANTHROPIC_IDENTITY_TOKEN = "test-identity-token";
+}
 
 let saved: Partial<Record<(typeof ENV_KEYS)[number], string>>;
 let configDir: string;
@@ -113,5 +122,36 @@ describe("resolveDefaultProviderId", () => {
     } finally {
       warn.mockRestore();
     }
+  });
+
+  test("ANTHROPIC_PROFILE が無いプロファイルを指すと警告して mock", async () => {
+    const warn = spyOn(console, "warn").mockImplementation(() => {});
+    try {
+      process.env.ANTHROPIC_PROFILE = "missing";
+      setFederationEnv();
+      expect(await resolveDefaultProviderId()).toBe("mock");
+      expect(warn).toHaveBeenCalled();
+    } finally {
+      warn.mockRestore();
+    }
+  });
+
+  test("ANTHROPIC_API_KEY があれば ANTHROPIC_PROFILE が無いプロファイルを指していても anthropic", async () => {
+    process.env.ANTHROPIC_API_KEY = "sk-ant-api03-test";
+    process.env.ANTHROPIC_PROFILE = "missing";
+    expect(await resolveDefaultProviderId()).toBe("anthropic");
+  });
+
+  test("ANTHROPIC_PROFILE のプロファイルは Federation の環境変数より優先", async () => {
+    writeProfile({ credentials: false });
+    process.env.ANTHROPIC_PROFILE = "default";
+    setFederationEnv();
+    expect(await resolveDefaultProviderId()).toBe("mock");
+  });
+
+  test("Federation の環境変数は active profile より優先", async () => {
+    writeProfile({ credentials: false });
+    setFederationEnv();
+    expect(await resolveDefaultProviderId()).toBe("anthropic");
   });
 });
