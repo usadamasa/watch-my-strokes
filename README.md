@@ -23,6 +23,15 @@ Webカメラで手元の紙を見守り、描画・手書きの練習にリア�
 bun install
 ```
 
+Claude Code の sandbox 内では `bun install` が `tempdir: EPERM` で失敗する。
+キャッシュをリポジトリ配下へ向けると通る。
+`./tmp` は `.gitignore` に無く `biome ci` が走査するため、install 後にキャッシュを消す。
+
+```bash
+BUN_INSTALL_CACHE_DIR=./tmp/bun-cache bun install
+rm -rf ./tmp/bun-cache
+```
+
 ## 起動
 
 ```bash
@@ -35,6 +44,21 @@ bun run dev:web
 
 ブラウザで http://localhost:5173 を開き、映像ソース(Webカメラ / シミュレーション)を選んで「開始」。
 プレビュー上をドラッグすると紙領域をクロップできる。
+
+### ポートが埋まっているとき
+
+サーバーが `EADDRINUSE` で起動しないときは、`lsof -nP -iTCP:8787 -sTCP:LISTEN` で使っているプロセスを確かめる。
+別のプロセスが使っていれば、サーバーのポートを `PORT` で変える。
+フロントエンドのプロキシ先は `SERVER_PORT` に同じ値を渡して合わせる。
+8791 と 5179 は E2E シミュレーションが使うので避ける。
+
+```bash
+# ターミナル1
+PORT=8788 bun run dev:server
+
+# ターミナル2
+SERVER_PORT=8788 bun run dev:web
+```
 
 ### コーチのプロバイダ
 
@@ -84,6 +108,7 @@ bun run simulate
 
 ヘッドレスの Chrome がシミュレーション映像(徐々に描き進む線画/手書き)でセッションを実行し、
 スクリーンショット・セッションログ・レポートを `docs/simulation/` に出力する。
+サーバーは 8791、フロントエンドは 5179 で固定なので、どちらも空けておく。
 
 ブラウザはマシンにインストールされた Google Chrome を使う(playwright-core の `channel: "chrome"`)。
 Chrome の security fix はマシンの Chrome の更新で取り込む。playwright-core 同梱の Chromium は
