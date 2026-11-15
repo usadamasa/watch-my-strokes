@@ -15,7 +15,7 @@
     "simulate": "bun run scripts/simulate.ts"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.5",
+    "@biomejs/biome": "^2.6.7",
     "@types/bun": "^1.4.4",
     "@typescript/native-preview": "^7.0.0-dev",
     "playwright-core": "^1.64.1"
